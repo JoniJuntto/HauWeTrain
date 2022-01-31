@@ -3,7 +3,7 @@
 import { initializeApp } from "firebase/app";
 import { useEffect, useState } from "react";
 import { getFirestore } from "@firebase/firestore";
-import { getAuth} from 'firebase/auth';
+import { getAuth, onAuthStateChanged} from 'firebase/auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -22,3 +22,13 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 
 export {auth, db}
+
+export function useAuth() {
+    const [currentUser, setCurrenUser] = useState();
+    useEffect(()=> {
+      const unsub = onAuthStateChanged(auth, user => setCurrenUser(user));
+      return unsub
+    }, [])
+  
+    return currentUser;
+  }
