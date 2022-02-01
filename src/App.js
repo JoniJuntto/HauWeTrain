@@ -5,6 +5,7 @@ import Home from './Home';
 import Start from './Start';
 import Add from './Add';
 import Admin from './Admin';
+import Details from './Details';
 
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
             <Route path="/start" element={<Start/>} />
             <Route path="/add" element={<Add/>} />
             <Route path="/admin" element={<Admin/>} />
+            <Route path="/dogdetails" element={<Details/>}/>
         </Routes>
       </Router>
     </div>
