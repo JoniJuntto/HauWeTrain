@@ -1,4 +1,4 @@
-import { Button, getTabId, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import React, {useState, useEffect} from "react";
 import './App.css';
 import { useAuth, db } from "./firebase";
@@ -46,6 +46,9 @@ export default function Start(){
     const navToAddDog = ( ) =>{
         navigate('/add')
     }
+    const navToDetails = (dog) =>{
+        navigate('/dogdetails',{state:{dog:dog}});
+    }
 
     return(
         <div className="App" >
@@ -68,7 +71,7 @@ export default function Start(){
                     ?<div>
                         <div>
                             {dogs.dogNames.map((dog)=>
-                            <Typography>{dog}</Typography>
+                            <Typography onClick={()=>navToDetails(dog)}>{dog}</Typography>
                             )
                             
                             }
