@@ -25,20 +25,22 @@ export default function Add() {
             handleNew(dogs);
         } else {
             console.log("No dogs")
-            handleNew("no")
+            handleNew()
         }
     }
 
 
 
     const handleNew = async (dogs) => {
+        console.log(dogs)
+        const dogID = dogNames + currentUser.uid;
         const docRef = doc(db, "dogs", currentUser.uid);
-        if (dogs === "no") {
+        if (!dogs) {
             console.log("No dogs previously")
             const payload = {
                 id: currentUser.uid,
                 dogNames: [dogNames],
-                dogIds: [dogNames]
+                dogIds: [dogID]
             };
             console.log(payload);
             await setDoc(docRef, payload);
@@ -48,7 +50,7 @@ export default function Add() {
             const payload = {
                 id: currentUser.uid,
                 dogNames: [...dogs.dogNames, dogNames],
-                dogIds: [...dogs.dogIds, dogNames]
+                dogIds: [...dogs.dogIds, dogID]
             };
             console.log(payload);
             await setDoc(docRef, payload);
