@@ -4,11 +4,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import { auth } from './firebase';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
-import GoogleButton from 'react-google-button'
-
-
+import GoogleButton from 'react-google-button';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeUser } from './features/user/userSlice';
 
 function Home() {
+    const dispatch = useDispatch()
     const navigate = useNavigate();
 
     const notify = (text, state) => {
@@ -22,7 +23,9 @@ function Home() {
     const signInWithGoogle = async () => {
         const provider = new GoogleAuthProvider();
         try {
-            await signInWithPopup(auth, provider);
+            const user = await signInWithPopup(auth, provider);
+            dispatch(changeUser(user.user))
+            console.log(user);
             notify('Login success', 'success');
             navigate('/start');
         }
